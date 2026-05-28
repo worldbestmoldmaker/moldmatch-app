@@ -1,30 +1,24 @@
 import streamlit as st
+import pandas as pd
 
+# ✅ Step 1: Define machine data FIRST
+machines = [
+    {"OEM": "NETSTAL", "Model": "ELION 800", "Clamp": 85,
+     "Platen_X": 600, "Platen_Y": 550,
+     "TieBar_X": 380, "TieBar_Y": 380,
+     "Daylight": 650},
+
+    {"OEM": "ARBURG", "Model": "470 A 1300-400", "Clamp": 400,
+     "Platen_X": 900, "Platen_Y": 900,
+     "TieBar_X": 600, "TieBar_Y": 600,
+     "Daylight": 1100},
+]
+
+# ✅ Step 2: Create dataframe BEFORE using it
+df = pd.DataFrame(machines)
+
+# ✅ Step 3: THEN use it
 if st.button("Run Compatibility Check"):
 
-    results = []
-
     for _, m in df.iterrows():
-        status, reason = check(m)
-
-        results.append({
-            "OEM": m["OEM"],
-            "Model": m["Model"],
-            "Clamp": m["Clamp"],
-            "Status": status,
-            "Reason": reason
-        })
-
-    results_df = pd.DataFrame(results)
-
-    st.subheader("Results")
-    st.dataframe(results_df)
-
-    # Recommendation
-    valid = results_df[results_df["Status"] == "PASS"]
-
-    if len(valid) > 0:
-        best = valid.sort_values("Clamp").iloc[0]
-        st.success(f"✅ Best Machine: {best['OEM']} {best['Model']} ({best['Clamp']} ton)")
-    else:
-        st.error("❌ No compatible machines")
+        st.write(m["Model"])
