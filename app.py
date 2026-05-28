@@ -6,7 +6,7 @@ import pandas as pd
 
 if st.button("Run Check"):
     st.write("Running compatibility check...")
-``
+
 
 
 machines = [
