@@ -46,7 +46,7 @@ machines = [
 
     {"OEM": "ENGEL", "Model": "e-victory 170/100", "Clamp": 100,
      "Platen_X": 650, "Platen_Y": 600,
-     "TieBar_X": None, "TieBar_Y": None,
+     "TieBar_X": 650, "TieBar_Y": 600,
      "Daylight": 800},
 ]
 
