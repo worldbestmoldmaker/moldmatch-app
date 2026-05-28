@@ -3,6 +3,12 @@ import pandas as pd
 # ---------------------------
 # MACHINE DATABASE (sample)
 # ---------------------------
+
+if st.button("Run Check"):
+    st.write("Running compatibility check...")
+``
+
+
 machines = [
     {"OEM": "NETSTAL", "Model": "ELION 800", "Clamp": 85,
      "Platen_X": 600, "Platen_Y": 550,
