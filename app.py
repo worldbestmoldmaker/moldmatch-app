@@ -8,6 +8,32 @@ st.title("MoldMatch - Machine Selection Tool")
 # ---------------------------
 st.header("Select Machine Brand")
 
+col1, col2, col3, col4 = st.columns(4)
+
+selected_oem = None
+
+with col1:
+    st.image("https://www.engelglobal.com/-/media/engel/images/products/injection-moulding-machines/duo/duo.jpg")
+    if st.button("ENGEL"):
+        selected_oem = "ENGEL"
+
+with col2:
+    st.image("https://www.arburg.com/.imaging/mte/arburg-theme/large/dam/images/products/allrounder.jpg")
+    if st.button("ARBURG"):
+        selected_oem = "ARBURG"
+
+with col3:
+    st.image("https://www.netstal.com/fileadmin/_processed_/8/6/csm_ELION_machine_02_8e9e1c.jpg")
+    if st.button("NETSTAL"):
+        selected_oem = "NETSTAL"
+
+with col4:
+    st.image("https://www.sumitomo-shi-demag.eu/fileadmin/site/images/products/el-exis-sp.jpg")
+    if st.button("SUMITOMO"):
+        selected_oem = "SUMITOMO"
+
+st.header("Select Machine Brand")
+
 col1, col2, col3 = st.columns(3)
 
 selected_oem = None
