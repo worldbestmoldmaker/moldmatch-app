@@ -13,7 +13,7 @@ col1, col2, col3, col4 = st.columns(4)
 selected_oem = None
 
 with col1:
-    st.image("https://www.engelglobal.com/-/media/engel/images/products/injection-moulding-machines/duo/duo.jpg")
+    st.image("https://www.engelglobal.com/en/products/injection-moulding-machines")
     if st.button("ENGEL"):
         selected_oem = "ENGEL"
 
@@ -32,26 +32,6 @@ with col4:
     if st.button("SUMITOMO"):
         selected_oem = "SUMITOMO"
 
-st.header("Select Machine Brand")
-
-col1, col2, col3 = st.columns(3)
-
-selected_oem = None
-
-with col1:
-    st.image("https://upload.wikimedia.org/wikipedia/commons/3/3f/Injection_molding_machine.jpg")
-    if st.button("ENGEL"):
-        selected_oem = "ENGEL"
-
-with col2:
-    st.image("https://upload.wikimedia.org/wikipedia/commons/6/6b/Plastic_injection_molding_machine.jpg")
-    if st.button("ARBURG"):
-        selected_oem = "ARBURG"
-
-with col3:
-    st.image("https://upload.wikimedia.org/wikipedia/commons/1/1f/Injection_machine.jpg")
-    if st.button("NETSTAL"):
-        selected_oem = "NETSTAL"
 
 # Store selection
 if "selected_oem" not in st.session_state:
