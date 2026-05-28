@@ -13,7 +13,7 @@ col1, col2, col3, col4 = st.columns(4)
 selected_oem = None
 
 with col1:
-    st.image("https://www.engelglobal.com/en/products/injection-moulding-machines")
+    st.image("https://s3-prod.plasticsnews.com/styles/width_792/s3/ENGEL%20e-mac%20180.jpg")
     if st.button("ENGEL"):
         selected_oem = "ENGEL"
 
