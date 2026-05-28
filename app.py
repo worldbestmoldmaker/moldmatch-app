@@ -1,10 +1,44 @@
 import streamlit as st
 import pandas as pd
 
-st.title("MoldMatch - Machine Compatibility Tool")
+st.title("MoldMatch - Machine Selection Tool")
 
 # ---------------------------
-# INPUTS (L, W, H)
+# MACHINE SELECTION (TOP UI)
+# ---------------------------
+st.header("Select Machine Brand")
+
+col1, col2, col3 = st.columns(3)
+
+selected_oem = None
+
+with col1:
+    st.image("https://upload.wikimedia.org/wikipedia/commons/3/3f/Injection_molding_machine.jpg")
+    if st.button("ENGEL"):
+        selected_oem = "ENGEL"
+
+with col2:
+    st.image("https://upload.wikimedia.org/wikipedia/commons/6/6b/Plastic_injection_molding_machine.jpg")
+    if st.button("ARBURG"):
+        selected_oem = "ARBURG"
+
+with col3:
+    st.image("https://upload.wikimedia.org/wikipedia/commons/1/1f/Injection_machine.jpg")
+    if st.button("NETSTAL"):
+        selected_oem = "NETSTAL"
+
+# Store selection
+if "selected_oem" not in st.session_state:
+    st.session_state.selected_oem = None
+
+if selected_oem:
+    st.session_state.selected_oem = selected_oem
+
+if st.session_state.selected_oem:
+    st.success(f"Selected OEM: {st.session_state.selected_oem}")
+
+# ---------------------------
+# INPUTS (MIDDLE)
 # ---------------------------
 st.header("Enter Mold Dimensions")
 
@@ -19,7 +53,7 @@ with col2:
 with col3:
     mold_height = st.number_input("Height / Thickness (mm)", value=400)
 
-# Opening requirement
+# Opening calculation
 safety_clearance = 20
 required_opening = mold_height + safety_clearance
 
@@ -46,52 +80,53 @@ machines = [
 
     {"OEM": "ENGEL", "Model": "e-victory 170/100", "Clamp": 100,
      "Platen_X": 650, "Platen_Y": 600,
-     "TieBar_X": 650, "TieBar_Y": 600,
+     "TieBar_X": None, "TieBar_Y": None,
      "Daylight": 800},
 ]
 
 df = pd.DataFrame(machines)
 
+# ✅ OPTIONAL: filter by selected OEM
+if st.session_state.selected_oem:
+    df = df[df["OEM"] == st.session_state.selected_oem]
+
 # ---------------------------
 # CHECK FUNCTION
 # ---------------------------
-def check_machine(machine):
+def check(machine):
     reasons = []
 
-    # WIDTH check (X direction)
+    # Width
     if machine["TieBar_X"] is not None:
         if mold_width > machine["TieBar_X"]:
-            reasons.append("Too wide for tie bars")
+            reasons.append("Too wide")
     else:
         if mold_width > machine["Platen_X"]:
-            reasons.append("Too wide for platen")
+            reasons.append("Too wide")
 
-    # LENGTH check (Y direction)
+    # Length
     if machine["TieBar_Y"] is not None:
         if mold_length > machine["TieBar_Y"]:
-            reasons.append("Too long for tie bars")
+            reasons.append("Too long")
     else:
         if mold_length > machine["Platen_Y"]:
-            reasons.append("Too long for platen")
+            reasons.append("Too long")
 
-    # HEIGHT / OPENING check
+    # Height / opening
     if required_opening > machine["Daylight"]:
         reasons.append("Insufficient daylight")
 
-    if len(reasons) == 0:
-        return "PASS", ""
-    else:
-        return "FAIL", ", ".join(reasons)
+    return "PASS" if not reasons else "FAIL", ", ".join(reasons)
 
 # ---------------------------
-# RUN BUTTON
+# RUN BUTTON (BOTTOM)
 # ---------------------------
 if st.button("Run Compatibility Check"):
 
     results = []
 
     for _, m in df.iterrows():
-        status, reason = check_machine(m)
+        status, reason = check(m)
 
         results.append({
             "OEM": m["OEM"],
@@ -103,17 +138,15 @@ if st.button("Run Compatibility Check"):
 
     results_df = pd.DataFrame(results)
 
-    # Show results
-    st.subheader("Compatibility Results")
+    st.subheader("Results")
     st.dataframe(results_df)
 
     # ---------------------------
-    # BEST MACHINE SELECTION
+    # BEST MACHINE
     # ---------------------------
     valid = results_df[results_df["Status"] == "PASS"]
 
     if len(valid) > 0:
-        # Choose smallest clamp machine → efficient choice
         best = valid.sort_values("Clamp (ton)").iloc[0]
 
         st.success(
