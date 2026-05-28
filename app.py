@@ -1,6 +1,22 @@
 import streamlit as st
 import pandas as pd
 
+
+st.header("Enter Mold Dimensions")
+
+col1, col2, col3 = st.columns(3)
+
+with col1:
+    mold_length = st.number_input("Length (mm)", value=300)
+
+with col2:
+    mold_width = st.number_input("Width (mm)", value=300)
+
+with col3:
+    mold_height = st.number_input("Height / Thickness (mm)", value=400)
+
+
+
 # ✅ Step 1: Define machine data FIRST
 machines = [
     {"OEM": "NETSTAL", "Model": "ELION 800", "Clamp": 85,
