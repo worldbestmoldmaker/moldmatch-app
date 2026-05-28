@@ -1,7 +1,11 @@
 import streamlit as st
 import pandas as pd
 
+st.title("MoldMatch - Machine Compatibility Tool")
 
+# ---------------------------
+# INPUTS (L, W, H)
+# ---------------------------
 st.header("Enter Mold Dimensions")
 
 col1, col2, col3 = st.columns(3)
@@ -15,9 +19,15 @@ with col2:
 with col3:
     mold_height = st.number_input("Height / Thickness (mm)", value=400)
 
+# Opening requirement
+safety_clearance = 20
+required_opening = mold_height + safety_clearance
 
+st.info(f"Required Machine Opening: {required_opening} mm")
 
-# ✅ Step 1: Define machine data FIRST
+# ---------------------------
+# MACHINE DATABASE
+# ---------------------------
 machines = [
     {"OEM": "NETSTAL", "Model": "ELION 800", "Clamp": 85,
      "Platen_X": 600, "Platen_Y": 550,
@@ -25,16 +35,3 @@ machines = [
      "Daylight": 650},
 
     {"OEM": "ARBURG", "Model": "470 A 1300-400", "Clamp": 400,
-     "Platen_X": 900, "Platen_Y": 900,
-     "TieBar_X": 600, "TieBar_Y": 600,
-     "Daylight": 1100},
-]
-
-# ✅ Step 2: Create dataframe BEFORE using it
-df = pd.DataFrame(machines)
-
-# ✅ Step 3: THEN use it
-if st.button("Run Compatibility Check"):
-
-    for _, m in df.iterrows():
-        st.write(m["Model"])
