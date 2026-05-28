@@ -18,17 +18,17 @@ with col1:
         selected_oem = "ENGEL"
 
 with col2:
-    st.image("https://www.arburg.com/.imaging/mte/arburg-theme/large/dam/images/products/allrounder.jpg")
+    st.image("https://www.arburg.com/media/_processed_/b/f/csm_186074-ALLROUNDER-470H-PREMIUM_fc43cccff1.jpg")
     if st.button("ARBURG"):
         selected_oem = "ARBURG"
 
 with col3:
-    st.image("https://www.netstal.com/fileadmin/_processed_/8/6/csm_ELION_machine_02_8e9e1c.jpg")
+    st.image("https://www.ptonline.com/products/high-speed-packaging-medical-demos-from-netstal")
     if st.button("NETSTAL"):
         selected_oem = "NETSTAL"
 
 with col4:
-    st.image("https://www.sumitomo-shi-demag.eu/fileadmin/site/images/products/el-exis-sp.jpg")
+    st.image("https://www.tkpm.eu/wp-content/uploads/2015/11/The-New-IntElect-5-2017.jpg")
     if st.button("SUMITOMO"):
         selected_oem = "SUMITOMO"
 
