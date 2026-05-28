@@ -23,7 +23,7 @@ with col2:
         selected_oem = "ARBURG"
 
 with col3:
-    st.image("https://www.ptonline.com/products/high-speed-packaging-medical-demos-from-netstal")
+    st.image("https://www.plasticportal.eu/image/staticke/Image/2022_foto/2022_september/netstal_text1.jpg")
     if st.button("NETSTAL"):
         selected_oem = "NETSTAL"
 
